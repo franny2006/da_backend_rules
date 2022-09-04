@@ -2,6 +2,7 @@ version: "3.1"
 services:
   app-rules:
     build: ./app
+    container_name: da_backend_rules
     ports:
       - "5010:5010"
 networks:
