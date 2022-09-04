@@ -5,7 +5,6 @@ import json
 import requests
 
 from classes.cls_db import cls_dbAktionen
-from forms import KundeForm
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
