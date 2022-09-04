@@ -14,7 +14,7 @@ RUN python -m pip install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Run app.py when the container launches
-COPY app.py /app
-COPY cls_db.py /app
+COPY da-rules-app.py /app
+COPY /classes classes/
 COPY /templates templates/
-CMD python app.py
+CMD python da-rules-app.py
