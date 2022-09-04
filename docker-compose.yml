@@ -3,4 +3,4 @@ services:
   app-rules:
     build: ./app
     ports:
-      - "5010:5000"
+      - "5010:5010"
