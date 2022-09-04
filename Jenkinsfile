@@ -16,7 +16,7 @@ node {
             }
         sh 'docker-compose build'
 
-        sh 'cd /var/lib/jenkins/workspace/da_rules/app'
+        sh 'cd /var/lib/jenkins/workspace/Demoanwendung - Backend - Rulesengine/app'
         dir('app'){
             echo "Workdir=$WORKSPACE"
             sh 'ls -l'
@@ -24,7 +24,7 @@ node {
                 writeFile file:'dummy', text:''
             }
             sh 'ls -l'
-            sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/da_rules/app/testreports'
+            sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung - Backend - Rulesengine/app/testreports'
         }
 
     }
