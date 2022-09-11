@@ -16,6 +16,16 @@ node {
             }
         sh 'docker-compose build'
 
+
+
+    }
+
+    stage('Start Containers') {
+        sh 'docker-compose up -d'
+      //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
+    }
+
+    stage('Execute Testsets') {
         sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
         dir('app'){
             echo "Workdir=$WORKSPACE"
@@ -26,12 +36,6 @@ node {
             sh 'ls -l'
             sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
         }
-
-    }
-
-    stage('Start Containers') {
-        sh 'docker-compose up -d'
-      //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
     }
 
     stage('Create Network Connectivity') {
