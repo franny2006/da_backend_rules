@@ -36,6 +36,7 @@ node {
             sh 'ls -l'
             sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
         }
+        currentBuild.rawBuild.result = Result.FAILURE
     }
 
     stage('Create Network Connectivity') {
