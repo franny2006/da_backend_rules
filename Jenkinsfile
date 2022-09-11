@@ -26,17 +26,18 @@ node {
     }
 
     stage('Execute Testsets') {
-        sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
-        dir('app'){
-            echo "Workdir=$WORKSPACE"
-            sh 'ls -l'
-            dir ('testreports') {
-                writeFile file:'dummy', text:''
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
+            dir('app'){
+                echo "Workdir=$WORKSPACE"
+                sh 'ls -l'
+                dir ('testreports') {
+                    writeFile file:'dummy', text:''
+                }
+                sh 'ls -l'
+                sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
             }
-            sh 'ls -l'
-            sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
         }
-        currentBuild.rawBuild.result = Result.SUCCESS
     }
 
     stage('Create Network Connectivity') {
