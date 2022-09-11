@@ -38,15 +38,28 @@ def api_verify():
 def verifyKunde(dictKunde):
     print(dictKunde)
     status = {}
+
+    # Prüfung Rolle
+    if not dictKunde['kunde']['rolle'].isnumeric():
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Rolle\''
+
+    # Prüfung Anrede
+    if not dictKunde['kunde']['anrede'].isnumeric():
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Anrede\''
+
     # Prüfung PANR
     if not dictKunde['kunde']['plz'].isnumeric():
-        status['nok'] = 'PLZ nicht numerisch'
+        status['result'] = 'nok'
+        status['rc'] = 'PLZ nicht numerisch'
 
 
 
 
     if not status:
-        status = {'ok: ': 'Prüfungen erfolgreich'}
+        status['result'] = 'ok'
+        status['rc'] = 'Prüfungen erfolgreich'
 
     print(status)
 
