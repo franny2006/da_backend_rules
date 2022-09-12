@@ -40,7 +40,7 @@ node {
                 }
                 sh 'ls -l'
                 // sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
-                sh 'behave -f json.pretty -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json'
+                sh 'behave -k --format=cucumber_json:PrettyCucumberJSONFormatter -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json'
             }
         }
     }
