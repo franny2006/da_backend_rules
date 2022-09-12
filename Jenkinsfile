@@ -26,9 +26,7 @@ node {
     }
 
     stage('Export Cucumber') {
-        steps {
-           step([$class: 'XrayExportBuilder', filePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/features', issues: 'DB-12', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
-        }
+        step([$class: 'XrayExportBuilder', filePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/features', issues: 'DB-12', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
     }
 
     stage('Execute Testsets') {
