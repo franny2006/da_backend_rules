@@ -39,7 +39,8 @@ node {
                     writeFile file:'dummy', text:''
                 }
                 sh 'ls -l'
-                sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
+                // sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
+                sh 'behave -f json.pretty -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json'
             }
         }
     }
@@ -50,12 +51,13 @@ node {
       //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
     }
 
-    stage('Reporting') {
-        junit '**/testreports/*.xml'
-   }
+//    stage('Reporting') {
+//        junit '**/testreports/*.xml'
+//   }
 
    stage('Import results to Xray') {
-        step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '**/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+     //   step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '**/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+        step([$class: 'XrayImportBuilder', endpointName: '/rest/raven/1.0/import/execution/behave', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
    }
 
 }
