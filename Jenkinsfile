@@ -57,7 +57,7 @@ node {
 
    stage('Import results to Xray') {
      //   step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '**/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
-        step([$class: 'XrayImportBuilder', endpointName: 'https://sandbox.xpand-addons.com/rest/raven/1.0/import/execution/behave', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+        step([$class: 'XrayImportBuilder', endpointName: '/behave', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/my_report.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
    }
 
 }
