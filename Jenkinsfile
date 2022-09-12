@@ -25,6 +25,12 @@ node {
       //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
     }
 
+    stage('Export Cucumber') {
+        steps {
+           step([$class: 'XrayExportBuilder', filePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/features', issues: 'DB-12', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+        }
+    }
+
     stage('Execute Testsets') {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
