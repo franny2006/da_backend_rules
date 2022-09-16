@@ -41,8 +41,7 @@ node {
                 sh 'ls -l'
                 // sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
                 sh 'behave -f json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json'
-                sh 'python3 -m behave2cucumber -i /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json'
-            }
+                            }
         }
     }
 
@@ -57,7 +56,9 @@ node {
 //   }
 
    stage('Import results to Xray') {
-     //   step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '**/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+        sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
+        sh 'python3 -m behave2cucumber -i /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json'
+   //   step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '**/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
         step([$class: 'XrayImportBuilder', endpointName: '/behave', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
    }
 
