@@ -41,7 +41,7 @@ node {
                 sh 'ls -l'
                 // sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
                 sh 'behave -f json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json'
-                sh 'python -m behave2cucumber -i /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json'
+                sh 'python3 -m behave2cucumber -i /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json'
             }
         }
     }
