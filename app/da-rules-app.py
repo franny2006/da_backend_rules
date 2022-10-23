@@ -54,8 +54,60 @@ def verifyKunde(dictKunde):
         status['result'] = 'nok'
         status['rc'] = 'PLZ nicht numerisch'
 
+    if not status:
+        status['result'] = 'ok'
+        status['rc'] = 'Prüfungen erfolgreich'
 
+    print(status)
 
+    return status
+
+# Teil, der in den Service wandern muss
+@app.route('/api/v1/resources/verifyOffer', methods=['GET', 'POST'])
+def api_verify_offer():
+    if not request.json:
+        abort(502, "Format ungültig (Auftrag sieht irgendwie doof aus!)")
+
+    print("request: ", request.json)
+    dictOffer = {
+        'offer': request.json
+    }
+    status = verifyOffer(dictOffer)
+    print("Status aus api_verify: ", status)
+    return jsonify({'status': status}), 200
+
+def verifyOffer(dictOffer):
+    print("Offer: ", dictOffer)
+    status = {}
+    # Prüfung Kunde
+    if not dictOffer['offer']['kunde_id'].isnumeric():
+        status['result'] = 'nok'
+        status['rc'] = 'Kein Antragsteller ausgewählt'
+
+    # Prüfung HSN
+    if not dictOffer['offer']['hsn'].isnumeric():
+        status['result'] = 'nok'
+        status['rc'] = 'Keine HSN angegeben'
+
+    # Prüfung TSN
+    if len(dictOffer['offer']['tsn']) != 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Keine TSN angegeben'
+
+    # Prüfung Kategorie
+    if dictOffer['offer']['kategorie'] == '*** Bitte auswählen ***':
+        status['result'] = 'nok'
+        status['rc'] = 'Keine Fahrzeugkategorie angegeben'
+
+    # Prüfung Fahrleistung
+    if dictOffer['offer']['fahrleistung'] == '*** Bitte auswählen ***':
+        status['result'] = 'nok'
+        status['rc'] = 'Keine jährliche Fahrleistung angegeben'
+
+    # Prüfung Verwendung
+    if dictOffer['offer']['verwendung'] == '*** Bitte auswählen ***':
+        status['result'] = 'nok'
+        status['rc'] = 'Keine Verwendungsart angegeben'
 
     if not status:
         status['result'] = 'ok'
