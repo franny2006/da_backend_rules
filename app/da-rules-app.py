@@ -49,10 +49,30 @@ def verifyKunde(dictKunde):
         status['result'] = 'nok'
         status['rc'] = 'Ungültiger Wert in Feld \'Anrede\''
 
-    # Prüfung PANR
+    # Prüfung Name
+    if len(dictKunde['kunde']['name']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Name\''
+
+    # Prüfung Vorname
+    if len(dictKunde['kunde']['vorname']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Vorname\''
+
+    # Prüfung Strasse
+    if len(dictKunde['kunde']['strasse']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Strasse\''
+
+    # Prüfung PLZ
     if not dictKunde['kunde']['plz'].isnumeric():
         status['result'] = 'nok'
         status['rc'] = 'PLZ nicht numerisch'
+
+    # Prüfung Ort
+    if len(dictKunde['kunde']['ort']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Ort\''
 
     if not status:
         status['result'] = 'ok'
