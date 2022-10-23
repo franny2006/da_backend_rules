@@ -107,17 +107,17 @@ def verifyOffer(dictOffer):
     # Prüfung HSN
     if not dictOffer['offer']['hsn'].isnumeric():
         status['result'] = 'nok'
-        status['rc'] = 'Keine HSN angegeben'
+        status['rc'] = 'Ungültige HSN angegeben'
 
     # Prüfung TSN
-    if len(dictOffer['offer']['tsn']) != 3:
+    if len(dictOffer['offer']['tsn']) < 3:
         status['result'] = 'nok'
-        status['rc'] = 'Keine TSN angegeben'
+        status['rc'] = 'Ungültige TSN angegeben'
 
     # Prüfung Kategorie
     if dictOffer['offer']['kategorie'] == '*** Bitte auswählen ***':
         status['result'] = 'nok'
-        status['rc'] = 'Keine Fahrzeugkategorie angegeben'
+        status['rc'] = 'Ungültige Kategorie angegeben'
 
     # Prüfung Fahrleistung
     if dictOffer['offer']['fahrleistung'] == '*** Bitte auswählen ***':

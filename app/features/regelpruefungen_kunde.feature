@@ -1,4 +1,4 @@
-Feature: Formatprüfungen
+Feature: Formatprüfungen Kunde
 
   Scenario Outline: Formatprüfungen Kunde anlegen
     Given Ich erfasse einen neuen Kunden
