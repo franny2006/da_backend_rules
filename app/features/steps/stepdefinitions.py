@@ -2,6 +2,9 @@ from behave import *
 import requests
 import json
 import sys
+from datetime import date, datetime
+import re
+from datetime import date, datetime, timedelta
 sys.path.insert(0, '../../')
 
 
@@ -45,6 +48,40 @@ def step_Ort(context, ort):
 def step_Geburtsdatum(context, geburtsdatum):
     context.geburtsdatum = geburtsdatum
 
+    date_format = '%Y-%m-%d'
+    try:
+        geburtstag = datetime.strptime(geburtsdatum, date_format)
+        geburtsdatumKonkret = geburtstag.date()
+    except:
+        regel = re.split(r'\s', geburtsdatum)
+
+        if regel[0].lower() == 'heute':
+            referenzdatum = date.today()
+        elif regel[0].lower() == 'gestern':
+            referenzdatum = date.today() - timedelta(days=1)
+        elif regel[0].lower() == 'morgen':
+            referenzdatum = date.today() + timedelta(days=1)
+
+        if regel[1] == "-":
+            if regel[3].lower() == 'y':
+                geburtsdatumKonkret = datetime(referenzdatum.year - int(regel[2]), referenzdatum.month, referenzdatum.day)
+                geburtsdatumKonkret = geburtsdatumKonkret.date()
+            elif regel[3].lower() == 'w':
+                geburtsdatumKonkret = referenzdatum - timedelta(weeks=int(regel[2]))
+            elif regel[3].lower() == 'd':
+                geburtsdatumKonkret = referenzdatum - timedelta(days=int(regel[2]))
+        elif regel[1] == "+":
+            if regel[3].lower() == 'y':
+                geburtsdatumKonkret = datetime(referenzdatum.year + int(regel[2]), referenzdatum.month, referenzdatum.day)
+                geburtsdatumKonkret = geburtsdatumKonkret.date()
+            elif regel[3].lower() == 'w':
+                geburtsdatumKonkret = referenzdatum + timedelta(months=int(regel[2]))
+            elif regel[3].lower() == 'd':
+                geburtsdatumKonkret = referenzdatum + timedelta(days=int(regel[2]))
+
+    context.geburtsdatumKonkret = geburtsdatumKonkret
+
+
 
 @then('es erscheint der Status {status} mit Meldung {meldung}')
 def step_Response(context, status, meldung):
@@ -60,7 +97,7 @@ def step_Response(context, status, meldung):
         'strasse': '' + context.strasse + '',
         'plz': '' + context.plz + '',
         'ort': '' + context.ort + '',
-        'geburtsdatum': '' + context.geburtsdatum + ''}
+        'geburtsdatum': '' + str(context.geburtsdatumKonkret) + ''}
     jsonPayload = json.dumps(payload, default=str)
     jsonPayload = json.loads(jsonPayload)
     response = requests.post(url, json=jsonPayload)
