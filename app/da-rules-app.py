@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify, render_template, redirect, flash, jso
 import mysql.connector
 import json
 import requests
+from datetime import date, datetime, timedelta
+
 
 from classes.cls_db import cls_dbAktionen
 
@@ -71,6 +73,34 @@ def verifyKunde(dictKunde):
 
     # Prüfung Ort
     if len(dictKunde['kunde']['ort']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Ort\''
+
+    # Prüfung Geburtsdatum
+    date_format = '%Y-%m-%d'
+    try:
+        geburtstag = datetime.strptime(dictKunde['kunde']['geburtsdatum'], date_format)    # Prüfung, ob syntaktisch korrekt
+        today = date.today()
+        alter = today.year - geburtstag.year - ((today.month, today.day) < (geburtstag.month, geburtstag.day)) # Prüfung, ob mind. 18 Jahre alt
+        print(alter)
+
+    except:
+        status['result'] = 'nok'
+        status['rc'] = 'Geburtsdatum ungültig'
+        print(dictKunde['kunde']['geburtsdatum'])
+
+ #   alter = datetime.now() - datetime.strptime(dictKunde['kunde']['geburtsdatum'], date_format)
+
+
+    if alter < 18:
+        status['result'] = 'nok'
+        status['rc'] = 'jünger als 18 Jahre'
+    dateObjekt = datetime.strptime(dictKunde['kunde']['geburtsdatum'], date_format)
+    print(dateObjekt)
+
+
+
+    if len(dictKunde['kunde']['geburtsdatum']) < 3:
         status['result'] = 'nok'
         status['rc'] = 'Ungültiger Wert in Feld \'Ort\''
 
