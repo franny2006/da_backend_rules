@@ -9,15 +9,19 @@ node {
 
     stage('Build image') {
         try {
-            sh 'docker-compose down -v'
+            sh 'docker stop da_backend'
             }
         catch (Exception e) {
             echo 'Container stoppen nicht möglich:  ' + e.toString()
             }
+        try {
+            sh 'docker rm $(docker ps -a -q)'
+            echo 'Gestoppte Container erfolgreich entfernt'
+            }
+        catch (Exception e) {
+            echo 'Entfernen der gestoppten Container fehlgeschlagen'
+            }
         sh 'docker-compose build'
-
-
-
     }
 
     stage('Start Containers') {
@@ -25,9 +29,9 @@ node {
       //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
     }
 
-    stage('Export Cucumber') {
-        step([$class: 'XrayExportBuilder', filePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/features', issues: 'DB-12;DB-17', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
-    }
+//    stage('Export Cucumber') {
+//        step([$class: 'XrayExportBuilder', filePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/features', issues: 'DB-12;DB-17', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
+//    }
 
     stage('Execute Testsets') {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
