@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
         try {
-            sh 'docker stop da_backend'
+            sh 'docker stop da_backend_rules'
             }
         catch (Exception e) {
             echo 'Container stoppen nicht möglich:  ' + e.toString()
