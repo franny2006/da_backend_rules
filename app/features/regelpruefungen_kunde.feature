@@ -1,7 +1,7 @@
 Feature: Formatprüfungen Kunde
 
   Scenario Outline: Formatprüfungen Kunde anlegen
-    Given Ich erfasse einen neuen Kunden
+    Given Über die Schnittstelle kommt ein Auftrag zur Kundenanlage
     When der Kunde hat die Rolle <rolle>
     When der Kunde hat die Anrede <anrede>
     When der Kunde hat den Vornamen <vorname>

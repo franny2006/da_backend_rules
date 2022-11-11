@@ -8,7 +8,7 @@ from datetime import date, datetime, timedelta
 sys.path.insert(0, '../../')
 
 
-@given('Ich erfasse einen neuen Kunden')
+@given('Über die Schnittstelle kommt ein Auftrag zur Kundenanlage')
 def step_impl(context):
     pass
 
