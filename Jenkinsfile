@@ -55,15 +55,6 @@ node {
       //  sh 'docker exec -i flaskdemo_db_1 mysql -h db -uroot -p"root" < /var/lib/jenkins/workspace/Flaskdemo/db/init.sql'
     }
 
-    post {
-        always {
-            junit '**/testreports/*.xml'
-        }
-    }
-
-//    stage('Reporting') {
-//        junit '**/testreports/*.xml'
-//   }
 
    stage('Import results to Xray and Jenkins') {
         junit '**/testreports/*.xml'
