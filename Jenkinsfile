@@ -65,7 +65,20 @@ node {
    }
 
    post{
-   // Test
+        always {
+            publishTestResults serverAddress: 'https://testmanufaktur.atlassian.net/jira',
+            projectKey: 'DA',
+            format: 'JUnit',
+            filePath: '**/testreports/*.xml',
+            autoCreateTestCases: true,
+              customTestCycle: [
+                name: 'Jenkins Build',
+                description: 'Results from Jenkins Build',
+                jiraProjectVersion: '10001',
+                folderId: '3040527',
+                customFields: '{"number":50,"single-choice":"option1","checkbox":true,"userpicker":"5f8b5cf2ddfdcb0b8d1028bb","single-line":"a text line","datepicker":"2020-01-25","decimal":10.55,"multi-choice":["choice1","choice3"],"multi-line":"first line<br />second line"}'
+              ]
+        }
    }
 
 }
