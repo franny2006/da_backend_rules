@@ -45,8 +45,8 @@ node {
                         writeFile file:'dummy', text:''
                         }
                     sh 'ls -l'
-                    // sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
-                    sh 'behave -f json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json'
+                    sh 'behave  --junit --junit-directory /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports'
+                    sh 'behave -f json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/zephyrscale_result.json'
                     }
             }
         }
