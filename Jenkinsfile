@@ -72,7 +72,7 @@ node {
    }
 
    finally {
-        publishTestResults serverAddress: 'https://testmanufaktur.atlassian.net/jira',
+        publishTestResults serverAddress: 'https://testmanufaktur.atlassian.net',
             projectKey: 'DA',
             format: 'JUnit',
             filePath: '**/testreports/*.xml',
