@@ -67,7 +67,7 @@ node {
        }
 
        stage('Transfer Testresults to Zephyr') {
-            sh 'curl -o -X POST -F "file=@testreports/TESTS-regelpruefungen_antrag.xml" -H "Authorization: Bearer b6bc691d-29ef-416d-90a5-d782f8e2a340" "https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey=DA&autoCreateTestCases=false"'
+            sh 'curl -o -X POST -F "file=@/var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/TESTS-regelpruefungen_antrag.xml" -H "Authorization: Bearer b6bc691d-29ef-416d-90a5-d782f8e2a340" "https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey=DA&autoCreateTestCases=false"'
        }
    }
    catch (e) {
