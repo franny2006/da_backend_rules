@@ -25,7 +25,7 @@ Feature: Formatprüfungen Kunde
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | morgen - 18 y   | nok        | jünger als 18 Jahre               | Fehlerfall jünger als 18         |
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | heute - 18 y    | ok         | Prüfungen erfolgreich             | Alter genau 18                   |
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | gestern - 18 y  | ok         | Prüfungen erfolgreich             | Alter 18 + 1 Tag                 |
-    | 2     | 1       | Ho      | Müller| Plätze 1| 12345  | München  | gestern - 18 y  | ok         | Prüfungen erfolgreich             | Glattläufer Name 2-stellig       |
+    | 2     | 1       | Hor     | Müller| Plätze 1| 12345  | München  | gestern - 18 y  | ok         | Prüfungen erfolgreich             | Glattläufer Name 3-stellig       |
     | 1     | 1       | vo      | name  | strasse | 12345  | ort      | 1973-11-17      | nok        | Ungültiger Wert in Feld 'Vorname' | Fehlerfall Vorname zu kurz       |
     | 1     | 1       | 1234    | name  | strasse | 12345  | ort      | 1973-11-17      | nok        | Ungültiger Wert in Feld 'Vorname' | Fehlerfall Vorname numerisch     |
     | 1     | 1       | Carla   | 1234  | strasse | 12345  | ort      | 1973-11-17      | nok        | Ungültiger Wert in Feld 'Name'    | Fehlerfall Name numerisch        |
