@@ -58,22 +58,19 @@ node {
         }
 
 
-       stage('Import results to Xray and Jenkins') {
-            junit '**/testreports/*.xml'
+       //stage('Import results to Xray and Jenkins') {
+       //     junit '**/testreports/*.xml'
        //     sh 'cd /var/lib/jenkins/workspace/Demoanwendung_Backend/app'
        //     sh 'python3 -m behave2cucumber -i /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/behave_report.json -o /var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json'
        //   letzte Version: step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
        //     step([$class: 'XrayImportBuilder', endpointName: '/cucumber', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
-       }
+       //}
 
        stage('Transfer Testresults to Zephyr') {
+            junit '**/testreports/*.xml'
             sh 'zip -D /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/junit_tests.zip /var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/TEST*.xml'
             sh 'curl -o -X POST -F "file=@/var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/junit_tests.zip" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7ImJhc2VVcmwiOiJodHRwczovL3Rlc3RtYW51ZmFrdHVyLmF0bGFzc2lhbi5uZXQiLCJ1c2VyIjp7ImFjY291bnRJZCI6IjVhZGIwNTAxZWVlODdmMmUzMTUxMTU3MSJ9fSwiaXNzIjoiY29tLmthbm9haC50ZXN0LW1hbmFnZXIiLCJzdWIiOiIwZTU0ZTg0ZS0yOTRlLTM2NDItYmMzMC0wY2JkN2Y1ZmJjYzEiLCJleHAiOjE3MjYyMjE1MTUsImlhdCI6MTY5NDY4NTUxNX0.i-Pv3fXtrnE1nFy_kARZu8OgccCPLyF8SbtzqQHUvVM" "https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey=DA&autoCreateTestCases=true"'
-
-//            sh 'curl -o -X POST -F "file=@/var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/TESTS-regelpruefungen_antrag.xml" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7ImJhc2VVcmwiOiJodHRwczovL3Rlc3RtYW51ZmFrdHVyLmF0bGFzc2lhbi5uZXQiLCJ1c2VyIjp7ImFjY291bnRJZCI6IjVhZGIwNTAxZWVlODdmMmUzMTUxMTU3MSJ9fSwiaXNzIjoiY29tLmthbm9haC50ZXN0LW1hbmFnZXIiLCJzdWIiOiIwZTU0ZTg0ZS0yOTRlLTM2NDItYmMzMC0wY2JkN2Y1ZmJjYzEiLCJleHAiOjE3MjYyMjE1MTUsImlhdCI6MTY5NDY4NTUxNX0.i-Pv3fXtrnE1nFy_kARZu8OgccCPLyF8SbtzqQHUvVM" "https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey=DA&autoCreateTestCases=true"'
-       //     sh 'curl -o -X POST -F "file=@/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/zephyrscale_result.json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb250ZXh0Ijp7ImJhc2VVcmwiOiJodHRwczovL3Rlc3RtYW51ZmFrdHVyLmF0bGFzc2lhbi5uZXQiLCJ1c2VyIjp7ImFjY291bnRJZCI6IjVhZGIwNTAxZWVlODdmMmUzMTUxMTU3MSJ9fSwiaXNzIjoiY29tLmthbm9haC50ZXN0LW1hbmFnZXIiLCJzdWIiOiIwZTU0ZTg0ZS0yOTRlLTM2NDItYmMzMC0wY2JkN2Y1ZmJjYzEiLCJleHAiOjE3MjYyMjE1MTUsImlhdCI6MTY5NDY4NTUxNX0.i-Pv3fXtrnE1nFy_kARZu8OgccCPLyF8SbtzqQHUvVM" "https://api.zephyrscale.smartbear.com/v2/automations/executions/cucumber?projectKey=DA&autoCreateTestCases=true"'
-
-       }
+        }
    }
    catch (e) {
         echo "Fehlerhafter Build"
