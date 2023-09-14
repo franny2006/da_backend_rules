@@ -55,9 +55,15 @@ def verifyKunde(dictKunde):
     if len(dictKunde['kunde']['name']) < 3:
         status['result'] = 'nok'
         status['rc'] = 'Ungültiger Wert in Feld \'Name\''
+    if dictKunde['kunde']['name'].isnumeric():
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Name\''
 
     # Prüfung Vorname
     if len(dictKunde['kunde']['vorname']) < 3:
+        status['result'] = 'nok'
+        status['rc'] = 'Ungültiger Wert in Feld \'Vorname\''
+    if dictKunde['kunde']['vorname'].isnumeric():
         status['result'] = 'nok'
         status['rc'] = 'Ungültiger Wert in Feld \'Vorname\''
 
