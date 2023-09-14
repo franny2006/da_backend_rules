@@ -1,6 +1,6 @@
 Feature: Formatprüfungen Kunde
 
-  Scenario Outline: Prüfregeln für Kunde anlegen with <titel>
+  Scenario Outline: Prüfregeln für Kunde anlegen: <titel>
     Given Über die Schnittstelle kommt ein Auftrag zur Kundenanlage
     When der Kunde hat die Rolle <rolle>
     When der Kunde hat die Anrede <anrede>
