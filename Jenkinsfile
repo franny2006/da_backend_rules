@@ -65,6 +65,10 @@ node {
        //   letzte Version: step([$class: 'XrayImportBuilder', endpointName: '/junit', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/testreports/*.xml', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
        //     step([$class: 'XrayImportBuilder', endpointName: '/cucumber', importFilePath: '/var/lib/jenkins/workspace/Demoanwendung_Backend/app/reports/cucumber_json.json', importToSameExecution: 'true', projectKey: 'DB', serverInstance: '8cad2d10-c6a7-43ca-8dc5-9bdbd7ae8eec'])
        }
+
+       stage('Transfer Testresults to Zephyr') {
+            sh 'curl -o -X POST -F "file=@testreports/TESTS-regelpruefungen_antrag.xml" -H "Authorization: Bearer b6bc691d-29ef-416d-90a5-d782f8e2a340" "https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey=DA&autoCreateTestCases=false"'
+       }
    }
    catch (e) {
         echo "Fehlerhafter Build"
@@ -72,17 +76,17 @@ node {
    }
 
    finally {
-        publishTestResults serverAddress: 'https://testmanufaktur.atlassian.net',
-            projectKey: 'DA',
-            format: 'Json',
-            filePath: '**/reports/*.json',
-            autoCreateTestCases: true,
-              customTestCycle: [
-                name: 'Jenkins Build',
-                description: 'Results from Jenkins Build',
-                jiraProjectVersion: '10001',
-                folderId: '3040527',
-                customFields: '{"number":50,"single-choice":"option1","checkbox":true,"userpicker":"5f8b5cf2ddfdcb0b8d1028bb","single-line":"a text line","datepicker":"2020-01-25","decimal":10.55,"multi-choice":["choice1","choice3"],"multi-line":"first line<br />second line"}'
+   //     publishTestResults serverAddress: 'https://testmanufaktur.atlassian.net',
+   //         projectKey: 'DA',
+   //         format: 'Json',
+   //         filePath: '**/reports/*.json',
+   //         autoCreateTestCases: true,
+   //           customTestCycle: [
+   //             name: 'Jenkins Build',
+   //             description: 'Results from Jenkins Build',
+   //             jiraProjectVersion: '10001',
+   //             folderId: '3040527',
+   //             customFields: '{"number":50,"single-choice":"option1","checkbox":true,"userpicker":"5f8b5cf2ddfdcb0b8d1028bb","single-line":"a text line","datepicker":"2020-01-25","decimal":10.55,"multi-choice":["choice1","choice3"],"multi-line":"first line<br />second line"}'
               ]
    }
 
