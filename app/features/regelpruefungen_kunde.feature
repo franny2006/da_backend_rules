@@ -25,3 +25,4 @@ Feature: Formatprüfungen Kunde
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | morgen - 18 y   | nok        | jünger als 18 Jahre               |
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | heute - 18 y    | ok         | Prüfungen erfolgreich             |
     | 2     | 1       | Horst   | Müller| Plätze 1| 12345  | München  | gestern - 18 y  | ok         | Prüfungen erfolgreich             |
+    | 2     | 1       | Ho      | Müller| Plätze 1| 12345  | München  | gestern - 18 y  | ok         | Prüfungen erfolgreich             |
